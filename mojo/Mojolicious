@@ -113,7 +113,20 @@ startup
 Catalystのbeginみたいなもの？かつdefaultと同じで、ルーティングに指定してあるもの以外はここの処理をしちゃう用にできる
 
 **その他
-catalystの-rと同じ動作はMOJO_RELOAD=1
+-catalystの-rと同じ動作はMOJO_RELOAD=1
+-logディレクトリに書き込めないとログを標準出力にだすので、ログディレクトリ削除でCatalystっぽくデバッグログを出力してくれる
+
+
+CGIでの利用?
+---------------------------------------------------------------------------------
+Off the cuff, I think the CGI script needed might look like this:
+
+ use FindBin '$Bin';
+ use lib "$Bin/../path/to/my/lib";
+ use Mojo::Server::CGI;
+ Mojo::Server::CGI-&gt;new( app_class =&gt; 'MyTestApp' )-&gt;run;
+---------------------------------------------------------------------------------
+
 
 参考
 http://gihyo.jp/dev/feature/01/mojo/13169
