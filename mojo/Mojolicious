@@ -1,0 +1,74 @@
+http://search.cpan.org/dist/Mojo/lib/Mojolicious.pm
+から
+
+**ATTRIBUTES
+
+mode
+>|perl|
+    my $mode = $mojo->mode;
+    $mojo    = $mojo->mode('production');
+||<
+
+
+>|perl|
+renderer
+
+    my $renderer = $mojo->renderer;
+    $mojo        = $mojo->renderer(Mojolicious::Renderer->new);
+||<
+
+>|perl|
+routes
+
+    my $routes = $mojo->routes;
+    $mojo      = $mojo->routes(Mojolicious::Dispatcher->new);
+||<
+
+>|perl|
+static
+
+    my $static = $mojo->static;
+    $mojo      = $mojo->static(MojoX::Dispatcher::Static->new);
+||<
+
+>|perl|
+types
+
+    my $types = $mojo->types;
+    $mojo     = $mojo->types(MojoX::Types->new)
+||<
+
+**METHODS
+
+Mojolicious inherits all methods from Mojo and implements the following new ones.
+
+new
+>|perl|
+    my $mojo = Mojolicious->new;
+||<
+
+build_ctx
+
+>|perl|
+    my $c = $mojo->build_ctx($tx);
+||<
+
+dispatch
+>|perl|
+    $mojo->dispatch($c);
+||<
+
+handler
+>|perl|
+    $tx = $mojo->handler($tx);
+||<
+process
+>|perl|
+    $mojo->process($c);
+||<
+
+>|perl|
+startup
+
+    $mojo->startup($tx);
+||<
