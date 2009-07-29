@@ -1,0 +1,59 @@
+NAME ^
+
+MojoX::Renderer - Renderer
+SYNOPSIS ^
+
+    use MojoX::Renderer;
+
+    my $renderer = MojoX::Renderer->new;
+
+DESCRIPTION ^
+
+MojoX::Renderer is a MIME type based renderer.
+ATTRIBUTES
+default_handler
+
+>|perl|
+    my $default = $renderer->default_handler;
+    $renderer   = $renderer->default_handler('epl');
+||<
+
+handler
+
+    my $handler = $renderer->handler;
+    $renderer   = $renderer->handler({epl => sub { ... }});
+
+precedence
+
+    my $precedence = $renderer->precedence;
+    $renderer      = $renderer->precedence(qw/epl tt mason/);
+
+types
+
+    my $types = $renderer->types;
+    $renderer = $renderer->types(MojoX::Types->new);
+
+root
+
+>|perl|
+   my $root  = $renderer->root;
+   $renderer = $renderer->root('/foo/bar/templates');
+||<
+テンプレートrootディレクトリ
+
+METHODS ^
+
+MojoX::Types inherits all methods from Mojo::Base and implements the follwing the ones.
+add_handler
+
+    $renderer = $renderer->add_handler(epl => sub { ... });
+
+render
+
+    my $success  = $renderer->render($c);
+
+    $c->stash->{partial} = 1;
+    my $output = $renderer->render($c);
+
+56115 Uploads, 18294 Distributions 70541 Modules, 7580 Uploaders
+Hosted by craftsmen
