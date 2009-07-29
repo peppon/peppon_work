@@ -16,6 +16,7 @@ renderer
     $mojo        = $mojo->renderer(Mojolicious::Renderer->new);
 ||<
 
+
 routes
 >|perl|
     my $routes = $mojo->routes;
@@ -33,11 +34,33 @@ Catalyst流にかくと...って書けないか
 ->to(でそのコントローラーとaction、idを指定みたいな？
 上記の場合 http://1270.0.1//example/welcom/1
 の設定がしてある
+->to()の中は初期値を渡したいとき？
 
-参考
-http://gihyo.jp/dev/feature/01/mojo/13169
-http://d.hatena.ne.jp/sagehachi/20081127/1227770479
+>|perl|
+    $r->route('/:controller/:action/:id', id => qr/\d+/)
+      ->to(controller => 'example', action => 'welcome', id => 1);
+||<
+この場合 id => qr/\d+/でidは数字だけって決まりにすることができる
 
+
+>|perl|
+	$r->route('/:controller/:action')
+	->to(controller => 'login', action => 'check');
+||<
+デフォルトルートだとlogin.pm の checkメソッドが呼ばれる。
+:が付いてる場合なんでも受け付けるので？対応するactionが無いと怒られる罠
+例：http://127.0.0.1/test/
+
+
+>|perl|
+	my $rr = $r->route('/:controller/:action')
+	->to(controller => 'login', action => 'check');
+	$rr->route('/edit')->to(action => 'check');
+	$rr->route('/delete')->to(action => 'check');
+||<
+http://127.0.0.1/login/check/edit/
+http://127.0.0.1/login/check/delete/
+は同じlogin.pmのcheckに行く
 
 static
 >|perl|
@@ -88,3 +111,12 @@ startup
 ||<
 起動時に1回だけ実行される
 Catalystのbeginみたいなもの？かつdefaultと同じで、ルーティングに指定してあるもの以外はここの処理をしちゃう用にできる
+
+**その他
+catalystの-rと同じ動作はMOJO_RELOAD=1
+
+参考
+http://gihyo.jp/dev/feature/01/mojo/13169
+http://d.hatena.ne.jp/sagehachi/20081125/1227608038
+http://d.hatena.ne.jp/sagehachi/20081127/1227770479
+http://d.hatena.ne.jp/sagehachi/20090107/1231296795
