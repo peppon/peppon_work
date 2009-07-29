@@ -10,30 +10,44 @@ mode
 ||<
 
 
->|perl|
 renderer
-
+>|perl|
     my $renderer = $mojo->renderer;
     $mojo        = $mojo->renderer(Mojolicious::Renderer->new);
 ||<
 
->|perl|
 routes
-
+>|perl|
     my $routes = $mojo->routes;
     $mojo      = $mojo->routes(Mojolicious::Dispatcher->new);
 ||<
 
+mojoliciousが生成するサンプルから
 >|perl|
-static
+    $r->route('/:controller/:action/:id')
+      ->to(controller => 'example', action => 'welcome', id => 1);
+||<
+Catalyst流にかくと...って書けないか
+/*/*/*にアクセスしたときのルーティング
+それぞれ/controller/action/idと対応して
+->to(でそのコントローラーとaction、idを指定みたいな？
+上記の場合 http://1270.0.1//example/welcom/1
+の設定がしてある
 
+参考
+http://gihyo.jp/dev/feature/01/mojo/13169
+http://d.hatena.ne.jp/sagehachi/20081127/1227770479
+
+
+static
+>|perl|
     my $static = $mojo->static;
     $mojo      = $mojo->static(MojoX::Dispatcher::Static->new);
 ||<
+静的ファイルへのアクセス？デフォルトではpublic？
 
->|perl|
 types
-
+>|perl|
     my $types = $mojo->types;
     $mojo     = $mojo->types(MojoX::Types->new)
 ||<
@@ -48,7 +62,6 @@ new
 ||<
 
 build_ctx
-
 >|perl|
     my $c = $mojo->build_ctx($tx);
 ||<
@@ -57,18 +70,21 @@ dispatch
 >|perl|
     $mojo->dispatch($c);
 ||<
+ディスパッチャー、リクエスト毎に呼ばれる
 
 handler
 >|perl|
     $tx = $mojo->handler($tx);
 ||<
+
 process
 >|perl|
     $mojo->process($c);
 ||<
 
->|perl|
 startup
-
+>|perl|
     $mojo->startup($tx);
 ||<
+起動時に1回だけ実行される
+Catalystのbeginみたいなもの？かつdefaultと同じで、ルーティングに指定してあるもの以外はここの処理をしちゃう用にできる
