@@ -1,6 +1,6 @@
 MOJO_HOME
 MOJO_APP 'Mojolicious::Lite';
-MOJO_MODE production
+MOJO_MODE production || development
 MOJO_APP
 MOJO_EPLITE_CLASS
 MOJO_MODE

@@ -55,5 +55,11 @@ render
     $c->stash->{partial} = 1;
     my $output = $renderer->render($c);
 
-56115 Uploads, 18294 Distributions 70541 Modules, 7580 Uploaders
-Hosted by craftsmen
+その他
+
+    $self->render(template => 'hoge'); だと 'hoge.html.epl'を見に行く
+
+template::toolkitが使いたいとき
+    $self->renderer->add_handler( tt => MojoX::Renderer::TT->new( mojo => $self));
+    $self->renderer->default_ext('tt');
+    $self->renderer->type->type(tt => 'text/html');

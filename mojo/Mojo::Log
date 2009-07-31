@@ -1,0 +1,95 @@
+Mojo::Log
+
+Mojo::Log - Simple Logger For Mojo
+SYNOPSIS ^
+
+    use Mojo::Log;
+
+    # Create a logging object that will log to STDERR by default
+    my $log = Mojo::Log->new;
+
+    # Customize the log location and minimum log level
+    my $log = Mojo::Log->new(
+        path  => '/var/log/mojo.log',
+        level => 'warn',
+    );
+
+    $log->debug("Why isn't this working?");
+    $log->info("FYI: it happened again");
+    $log->warn("This might be a problem");
+    $log->error("Garden variety error");
+    $log->fatal("Boom!");
+
+DESCRIPTION ^
+
+Mojo::Log is a simple logger for Mojo projects.
+ATTRIBUTES ^
+
+Mojo::Log implements the following attributes.
+handle
+
+    my $handle = $log->handle;
+    $log       = $log->handle(IO::File->new);
+
+level
+
+    my $level = $log->level;
+    $log      = $log->level('debug');
+
+path
+
+    my $path = $log->path
+    $log     = $log->path('/var/log/mojo.log');
+
+METHODS ^
+
+Mojo::Log inherits all methods from Mojo::Base and implements the following new ones.
+debug
+
+    $log = $log->debug('You screwed up, but thats ok');
+
+error
+
+    $log = $log->error('You really screwed up this time');
+
+fatal
+
+    $log = $log->fatal('Its over...');
+
+info
+
+    $log = $log->info('You are bad, but you prolly know already');
+
+is_level
+
+    my $is = $log->is_level('debug');
+
+is_debug
+
+    my $is = $log->is_debug;
+
+is_error
+
+    my $is = $log->is_error;
+
+is_fatal
+
+    my $is = $log->is_fatal;
+
+is_info
+
+    my $is = $log->is_info;
+
+is_warn
+
+    my $is = $log->is_warn;
+
+log
+
+    $log = $log->log(debug => 'This should work');
+
+warn
+
+    $log = $log->warn('Dont do that Dave...');
+
+56075 Uploads, 18308 Distributions 70572 Modules, 7586 Uploaders

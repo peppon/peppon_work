@@ -115,6 +115,30 @@ Catalystのbeginみたいなもの？かつdefaultと同じで、ルーティン
 **その他
 -catalystの-rと同じ動作はMOJO_RELOAD=1
 -logディレクトリに書き込めないとログを標準出力にだすので、ログディレクトリ削除でCatalystっぽくデバッグログを出力してくれる
+または環境変数MOJO_MODEで切り替える
+    $ENV{MOJO_MODE} = 'development';
+    $ENV{MOJO_MODE} = 'production';
+
+sub production_mode {
+    my $self = shift;
+
+    # log to file
+    $self->log->level('error');
+    # Production templates
+    $self->renderer->root('/Users/production/templates');
+}
+
+sub development_mode {
+    my $self = shift;
+
+    # log to STDERR
+    $self->log->handle(*STDERR);
+    # Development templates
+    $self->renderer->root('/Users/dev/templates');
+}
+
+ログ    $log->debug("Why isn't this working?");
+
 
 
 CGIでの利用?
